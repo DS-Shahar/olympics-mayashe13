@@ -1,0 +1,135 @@
+package test;
+
+public class Athlete {
+	private String name;
+	private Grade[]grades;
+	private int count;
+	
+	public Athlete(int size)
+	{
+		this.grades = new Grade[size];
+		count = 0;
+	}
+	public Athlete(Athlete a)
+	{
+		this.name = a.name;
+		this.grades = new Grade[a.grades.length];
+		this.count = a.count;
+		for(int i = 0; i<a.grades.length; i++)
+		{
+			this.grades[i] = new Grade(a.grades[i]);
+		}
+	}
+	public boolean addGrade(String apparatus, double score)
+	{
+		Grade g = new Grade(apparatus,score);
+		for(int i = 0; i< grades.length; i++)
+		{
+			if(grades[i] == null)
+			{
+				grades[i] = new Grade(apparatus,score);
+				count++;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean deleteGrade(String ap)
+	{
+		for(int i = 0; i< grades.length; i++)
+		{
+			if(grades[i].getApparatus()==ap)
+			{
+				grades[i]=null;
+				count--;
+				return true; 
+			}
+		}
+		return false;
+	}
+	
+	public double avg()
+	{
+		double sum = 0;
+		for(int i = 0; i< grades.length; i++)
+		{
+			if(grades[i]!=null)
+				sum+= grades[i].getScore();
+		}
+		if(sum==0)
+			return -1;
+		return (sum/count);
+	}
+	public boolean allGradesAbove(double score)
+	{
+		for(int i = 0; i< grades.length; i++)
+		{
+			if(grades[i].getScore()<score)
+				return false;
+		}
+		return true;
+	}
+	public boolean isBetter(Athlete a)
+	{
+		String ap = "";
+		for(int i = 0; i<this.grades.length; i++)
+		{
+			ap = this.grades[i].getApparatus();
+			
+			for(int j = 0; j<a.grades.length; j++)
+			{
+				if(a.grades[j].getApparatus().equals(ap))
+				{
+					if(a.grades[j].getScore()>this.grades[i].getScore())
+						return false;
+				}
+			}
+		}
+		return true;
+	}
+
+ package test;
+
+public class Grade {
+	private String apparatus;
+	private double score;
+	
+	
+	public Grade(String apparatus, double score)
+	{
+		this.apparatus = apparatus;
+		this.score = score;
+	}
+
+
+	public Grade(Grade grade) {
+		this.apparatus = grade.apparatus;
+		this.score = grade.score;
+	}
+
+
+	public String getApparatus() {
+		return apparatus;
+	}
+
+
+	public void setApparatus(String apparatus) {
+		this.apparatus = apparatus;
+	}
+
+
+	public double getScore() {
+		return score;
+	}
+
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+	
+	
+}
+
+	
+	
